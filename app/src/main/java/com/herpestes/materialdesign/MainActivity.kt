@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    SayfaTopAppBar()
+                    SayfaTopAppBarArama()
                 }
             }
         }
@@ -40,12 +40,63 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     MaterialDesignTheme {
-        SayfaTopAppBar()
+        SayfaTopAppBarArama()
     }
 }
+@Composable
+fun SayfaTopAppBarArama() {
+    val aramayapiliyormu = remember { mutableStateOf(false) }
+    val tf = remember { mutableStateOf("") }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
 
+                    if(aramayapiliyormu.value){
+                        TextField(
+                            value = tf.value,
+                            onValueChange = {
+                                tf.value = it
+                                Log.e("TopBar", "Arama: $it")
+                                            },
+                            label = { Text(text = "Ara")}
+                        )
 
+                    }else{
+                        Text(text = "Başlık")
+                    }
+                },
+                backgroundColor = colorResource(id = R.color.anarenk),
+                contentColor = Color.White,
+                actions = {
+                    if (aramayapiliyormu.value) {
+                        IconButton(onClick = {
+                            aramayapiliyormu.value = false
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.kapat_resim),
+                                contentDescription = ""
+                            )
+                        }
+                    }else{
+                        IconButton(onClick = {
+                            aramayapiliyormu.value = false
+                            tf.value = ""
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.arama_resim),
+                                contentDescription = ""
+                            )
+                        }
+                    }
+                }
+            )
+        },
+        content = {
 
+        }
+    )
+}
 @Composable
 fun SayfaTopAppBar() {
     val menuAcilisKontrol = remember { mutableStateOf(false) }
