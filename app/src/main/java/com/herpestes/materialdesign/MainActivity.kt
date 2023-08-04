@@ -9,10 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -67,9 +64,17 @@ fun SayfaDinamikListeleme() {
                     }) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(all = 10.dp)
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.padding(all = 10.dp).fillMaxWidth()
                         ) {
-                            Text(text = ulke, modifier = Modifier.padding(all = 5.dp))
+                            Text(text = ulke, modifier = Modifier.padding(all = 5.dp).clickable {
+                                Log.e("Liste", "Text ile $ulke seçildi")
+                            })
+                            OutlinedButton(onClick = {
+                                Log.e("Liste", " Buton ile $ulke seçildi")
+                            }) {
+                                Text(text = "Ülke seç")
+                            }
                         }
                     }
 
