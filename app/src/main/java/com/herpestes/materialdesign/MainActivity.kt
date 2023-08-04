@@ -1,6 +1,7 @@
 package com.herpestes.materialdesign
 
 import android.os.Bundle
+import android.telecom.Call.Details
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.herpestes.materialdesign.ui.theme.MaterialDesignTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    SayfaDinamikListeleme()
+                    Sayfagecisleri()
                 }
             }
         }
@@ -40,12 +47,26 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     MaterialDesignTheme {
-        SayfaDinamikListeleme()
+        
+    }
+}
+fun Sayfagecisleri() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "sayfa"){
+        composable("sayfa"){
+            SayfaDinamikListeleme(navController = navController)
+        }
+        composable("details_sayfa/{ulkeAdi}", arguments = listOf(
+            navArgument("ulkeAdi"){ type = NavType.StringType}
+        )){
+            val ulkeAdi = it.arguments?.getString("ulkeAdi")!!
+            Details(ulkeAdi= ulkeAdi)
+        }
     }
 }
 
 @Composable
-fun SayfaDinamikListeleme() {
+fun SayfaDinamikListeleme(navController: NavController) {
     val ulkelistesi = remember { mutableListOf("Türkiye", "İtalya", "Almanya", "Japonya") }
 
     LazyColumn {
@@ -65,11 +86,15 @@ fun SayfaDinamikListeleme() {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.padding(all = 10.dp).fillMaxWidth()
+                            modifier = Modifier
+                                .padding(all = 10.dp)
+                                .fillMaxWidth()
                         ) {
-                            Text(text = ulke, modifier = Modifier.padding(all = 5.dp).clickable {
-                                Log.e("Liste", "Text ile $ulke seçildi")
-                            })
+                            Text(text = ulke, modifier = Modifier
+                                .padding(all = 5.dp)
+                                .clickable {
+                                    Log.e("Liste", "Text ile $ulke seçildi")
+                                })
                             OutlinedButton(onClick = {
                                 Log.e("Liste", " Buton ile $ulke seçildi")
                             }) {
