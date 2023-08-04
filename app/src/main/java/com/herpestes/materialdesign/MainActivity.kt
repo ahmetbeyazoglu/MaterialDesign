@@ -6,11 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -47,7 +45,57 @@ fun DefaultPreview() {
         SayfaSabitListeleme()
     }
 }
+@Composable
+fun SayfaSabitListeleme() {
+    LazyRow{
+        item {
+            Card(
+                modifier = Modifier
+                    .padding(all = 5.dp).size(100.dp)
 
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically,horizontalArrangement = Arrangement.Center,modifier = Modifier.clickable {
+                    Log.e("Liste", "Güneş tıklandı")
+                }) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(all = 10.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.gunes_resim),
+                            contentDescription = ""
+                        )
+                        Text(text = "Güneş", modifier = Modifier.padding(all = 5.dp))
+                    }
+                }
+            }
+        }
+        item {
+            Card(
+                modifier = Modifier
+                    .padding(all = 5.dp)
+                    .size(100.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically,horizontalArrangement = Arrangement.Center,modifier = Modifier.clickable {
+                    Log.e("Liste", "Ay tıklandı")
+                }) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(all = 10.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ay_resim),
+                            contentDescription = ""
+                        )
+                        Text(text = "Ay", modifier = Modifier.padding(all = 5.dp))
+                    }
+                }
+            }
+        }
+    }
+
+}
+/*
 @Composable
 fun SayfaSabitListeleme() {
     LazyColumn {
@@ -97,7 +145,7 @@ fun SayfaSabitListeleme() {
         }
     }
 
-}
+}*/
 /*
 @Composable
 fun SayfaTopAppBarArama() {
