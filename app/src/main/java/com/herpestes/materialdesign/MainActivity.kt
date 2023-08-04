@@ -14,6 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    SayfaSabitListeleme()
+                    SayfaDinamikListeleme()
                 }
             }
         }
@@ -42,21 +43,58 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     MaterialDesignTheme {
-        SayfaSabitListeleme()
+        SayfaDinamikListeleme()
     }
 }
+
+@Composable
+fun SayfaDinamikListeleme() {
+    val ulkelistesi = remember { mutableListOf("Türkiye", "İtalya", "Almanya", "Japonya") }
+
+    LazyColumn {
+        items(
+            count = ulkelistesi.count(),
+            itemContent = {
+                val ulke = ulkelistesi[it]
+
+                Card(
+                    modifier = Modifier
+                        .padding(all = 5.dp)
+                        .fillMaxWidth()
+                ) {
+                    Row {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(all = 10.dp)
+                        ) {
+                            Text(text = ulke, modifier = Modifier.padding(all = 5.dp))
+                        }
+                    }
+
+                }
+
+            }
+        )
+    }
+
+}
+
 @Composable
 fun SayfaSabitListeleme() {
-    LazyRow{
+    LazyRow {
         item {
             Card(
                 modifier = Modifier
-                    .padding(all = 5.dp).size(100.dp)
+                    .padding(all = 5.dp)
+                    .size(100.dp)
 
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically,horizontalArrangement = Arrangement.Center,modifier = Modifier.clickable {
-                    Log.e("Liste", "Güneş tıklandı")
-                }) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.clickable {
+                        Log.e("Liste", "Güneş tıklandı")
+                    }) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(all = 10.dp)
