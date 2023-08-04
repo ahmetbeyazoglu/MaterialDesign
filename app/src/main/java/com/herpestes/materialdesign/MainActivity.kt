@@ -62,7 +62,9 @@ fun SayfaDinamikListeleme() {
                         .padding(all = 5.dp)
                         .fillMaxWidth()
                 ) {
-                    Row {
+                    Row(modifier = Modifier.clickable {
+                        Log.e("Liste", "$ulke seçildi")
+                    }) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.padding(all = 10.dp)
